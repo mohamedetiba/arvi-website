@@ -23,7 +23,7 @@ a{color:#E2C46A;text-decoration:none}a:hover{color:#F6E7A8}
 .btn-gold:hover{filter:brightness(1.08);color:#0B0A08}
 .btn-line{border:1px solid rgba(226,196,106,.6);color:#EDE6D8}
 .btn-line:hover{background:rgba(226,196,106,.1);color:#F6E7A8}
-.ph{position:relative;overflow:hidden;background-color:#1A1712;background-image:repeating-linear-gradient(135deg,rgba(226,196,106,.05) 0 1px,transparent 1px 22px)}
+.ph{position:relative;overflow:hidden;overflow:clip;background-color:#1A1712;background-image:repeating-linear-gradient(135deg,rgba(226,196,106,.05) 0 1px,transparent 1px 22px)}
 .ph-label{position:absolute;top:16px;left:16px;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:12px;color:#BFB29A;background:rgba(11,10,8,.7);border:1px solid rgba(226,196,106,.25);padding:6px 10px;direction:rtl}
 .rule{height:1px;background:linear-gradient(90deg,transparent,rgba(226,196,106,.5),transparent)}
 .cat:hover .cat-line{opacity:1;transform:none}
@@ -34,16 +34,77 @@ a{color:#E2C46A;text-decoration:none}a:hover{color:#F6E7A8}
 .cat-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,10,8,.92) 0%,rgba(11,10,8,.35) 55%,rgba(11,10,8,.1) 100%)}
 .cat:hover .fill-img{transform:scale(1.04)}
 .nav::-webkit-scrollbar{display:none}
+:root{--sec:clamp(72px,9vw,128px);--ease:cubic-bezier(.16,.84,.24,1)}
+[id]{scroll-margin-top:92px}
+.sec{padding-top:var(--sec)!important;padding-bottom:var(--sec)!important}
+.sh{margin-bottom:56px!important}
+.btn{transition:transform .35s var(--ease),filter .25s,background .25s,color .25s,border-color .25s}
+.btn:hover{transform:translateY(-3px)}
+.btn-gold{position:relative;overflow:hidden}
+.btn-gold::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--ease)}
+.btn-gold:hover::after{transform:translateX(120%)}
+.cat{transition:border-color .4s}
+.fill-img{transition:transform 1.2s var(--ease)}
+.nav a{position:relative}
+.nav a::after{content:"";position:absolute;right:0;left:0;bottom:-4px;height:1px;background:#E2C46A;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.nav a:hover::after{transform:scaleX(1)}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(270deg,#F3E1A0,#D2A443 60%,#B88A2E);transform-origin:right;transform:scaleX(0)}
+.marquee{overflow:hidden;direction:ltr;border-top:1px solid rgba(226,196,106,.15);border-bottom:1px solid rgba(226,196,106,.15);padding:26px 0}
+.mq-track{display:flex;width:max-content}
+.mq-group{display:flex;align-items:center;gap:44px;padding-right:44px;white-space:nowrap}
+.mq-out{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,92px);line-height:1;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1px rgba(226,196,106,.55)}
+.mq-ar{font-family:'Reem Kufi',sans-serif;font-size:clamp(36px,4.6vw,72px);line-height:1.2;color:#D2A443}
+.mq-dot{width:12px;height:12px;background:#D2A443;transform:rotate(45deg);flex:none}
+.wa-float::before{content:"";position:absolute;inset:0;border:2px solid #1F8A4C;pointer-events:none}
+.par{inset:-10% 0 auto 0!important;height:120%!important}
+@keyframes up{from{opacity:0;translate:0 36px}to{opacity:1;translate:0 0}}
+@keyframes kb{from{scale:1.14}to{scale:1}}
+@keyframes hpar{to{translate:0 16%}}
+@keyframes shine{to{background-position:200% center}}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes pulse{from{transform:scale(1);opacity:.6}to{transform:scale(1.45);opacity:0}}
+@keyframes rv{from{opacity:0;translate:0 44px}to{opacity:1;translate:0 0}}
+@keyframes rvc{from{opacity:0;translate:0 64px;scale:.96}to{opacity:1;translate:0 0;scale:1}}
+@keyframes clip{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes zoomout{from{scale:1.28}to{scale:1}}
+@keyframes big{from{opacity:0;letter-spacing:.32em;filter:blur(10px)}to{opacity:1;letter-spacing:.06em;filter:blur(0)}}
+@keyframes par{from{translate:0 -8%}to{translate:0 8%}}
+@keyframes prog{to{transform:scaleX(1)}}
+@media (prefers-reduced-motion: no-preference){
+.hero-img{animation:kb 2.6s var(--ease) both}
+.hero-in>*{animation:up 1.1s var(--ease) both}
+.hero-in>*:nth-child(1){animation-delay:.2s}
+.hero-in>*:nth-child(2){animation-delay:.35s}
+.hero-in>*:nth-child(3){animation-delay:.5s}
+.hero-in>*:nth-child(4){animation-delay:.65s}
+.hero-in>*:nth-child(5){animation-delay:.8s}
+.hero-in>*:nth-child(6){animation-delay:.9s}
+.gold{background-image:linear-gradient(100deg,#F8EBB0 0%,#D9AE4E 25%,#B4862C 50%,#D9AE4E 75%,#F8EBB0 100%);background-size:200% auto;animation:shine 7s linear infinite}
+.mq-track{animation:mq 42s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+.wa-float::before{animation:pulse 2.4s var(--ease) infinite}
+@supports (animation-timeline: view()){
+.sec h2,.sec h3,.sec p,.sec .btn,.sec figcaption,.sec .stats,.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 26%}
+.rvi{animation:clip linear both;animation-timeline:view();animation-range:entry 0% cover 42%}
+.rvi img{animation:zoomout linear both;animation-timeline:view();animation-range:entry 0% cover 70%}
+.cat{animation:rvc linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+.big{animation:big linear both;animation-timeline:view();animation-range:entry 10% cover 40%}
+.par{animation:par linear both;animation-timeline:view()}
+.hero-img{animation:kb 2.6s var(--ease) both,hpar linear both;animation-timeline:auto,scroll(root);animation-range:normal,0 100vh}
+.progress{animation:prog linear both;animation-timeline:scroll(root)}
+}
+}
 @media (max-width: 720px){
-.hdr{padding:12px 16px!important;gap:10px!important}
+.sh{margin-bottom:36px!important}
+.hdr{padding:10px 16px 8px!important;gap:8px!important}
+[id]{scroll-margin-top:124px}
 .hide-m{display:none!important}
 .hdr-cta .btn{min-height:42px!important;padding:0 12px!important;font-size:13px!important}
-.nav{order:3;width:100%;flex-wrap:nowrap!important;overflow-x:auto;gap:24px!important;font-size:14px!important;padding-top:10px;border-top:1px solid rgba(226,196,106,.15);white-space:nowrap;scrollbar-width:none}
+.nav{order:3;width:100%;flex-wrap:nowrap!important;overflow-x:auto;gap:24px!important;font-size:14px!important;padding-top:6px;border-top:1px solid rgba(226,196,106,.15);white-space:nowrap;scrollbar-width:none}
 .nav a{padding:6px 0}
 .hero{min-height:640px!important}
 .hero h1{font-size:42px!important}
 p.lat{letter-spacing:.12em!important}
-.sec{padding-top:72px!important;padding-bottom:72px!important}
 .intro-gallery{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .intro-main{grid-column:span 2!important;height:300px!important}
 .intro-side{grid-column:span 2!important;padding-top:0!important;flex-direction:row!important}
@@ -70,13 +131,25 @@ p.lat{letter-spacing:.12em!important}
 .wa-float .wa-text{display:none}
 }
 </style>
-<style>html{scroll-behavior:smooth}</style>
+<style>
+html{scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+.io .sec h2,.io .sec h3,.io .sec p,.io .sec .btn,.io .sec figcaption,.io .sec .stats,.io .rv,.io .cat,.io .big{opacity:0;translate:0 40px;transition:opacity 1s var(--ease),translate 1s var(--ease),transform .35s var(--ease),filter .25s}
+.io .rvi{clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--ease)}
+.io .rvi img{scale:1.22;transition:scale 1.8s var(--ease)}
+.io .in{opacity:1!important;translate:0 0!important}
+.io .rvi.in{clip-path:inset(0 0 0 0)}
+.io .rvi.in img{scale:1}
+</style>
 </head>
 <body>
-<div style="direction: rtl; background: #0B0A08; color: #EDE6D8; font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden">
+<div style="direction: rtl; background: #0B0A08; color: #EDE6D8; font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: clip">
 
 <!-- ============ HEADER ============ -->
-<header style="position: relative; z-index: 5; border-bottom: 1px solid rgba(226,196,106,.18); background: rgba(11,10,8,.92)">
+<header style="position: sticky; top: 0; z-index: 30; border-bottom: 1px solid rgba(226,196,106,.18); background: rgba(11,10,8,.78); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%)">
+<div class="progress" aria-hidden="true"></div>
 <div class="hdr" style="max-width: 1280px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
 <a href="#top" aria-label="ARVI Real Estate — الرئيسية" style="display: flex; align-items: center; gap: 14px">
 <img src="assets/arvi-mono.png" alt="ARVI" style="height: 40px; width: auto">
@@ -100,11 +173,11 @@ p.lat{letter-spacing:.12em!important}
 
 <!-- ============ 01 HERO ============ -->
 <section id="top" class="ph hero" style="min-height: 820px; display: flex; align-items: flex-end; background-color: #14110C">
-<img src="assets/facade-e30.jpg" alt="واجهة مشروع ARVI — قطعة E 30 بالحي التاسع، 6 أكتوبر" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 38%">
+<img class="hero-img" src="assets/facade-e30.jpg" alt="واجهة مشروع ARVI — قطعة E 30 بالحي التاسع، 6 أكتوبر" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 38%">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(0deg, #0B0A08 6%, rgba(11,10,8,.7) 42%, rgba(11,10,8,.25) 100%)"></div>
 <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(270deg, rgba(11,10,8,.75) 0%, rgba(11,10,8,0) 60%)"></div>
 <img src="assets/arvi-mono.png" alt="" aria-hidden="true" style="position: absolute; left: -60px; top: 80px; width: 720px; opacity: .07">
-<div style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px 72px; box-sizing: border-box">
+<div class="hero-in" style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px 72px; box-sizing: border-box">
 <p class="lat" style="margin: 0 0 18px; font-size: 18px; color: #E2C46A; letter-spacing: .35em">ARVI REAL ESTATE — ZAYED · OCTOBER</p>
 <h1 style="margin: 0; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(48px, 7.4vw, 108px); line-height: 1.15; max-width: 900px">امتلك عنوانًا <span class="gold" style="white-space: nowrap">يليق بك</span></h1>
 <p style="margin: 26px 0 0; max-width: 640px; font-size: 19px; font-weight: 300; color: #D9D0BF">مع ARVI Real Estate، اكتشف مشروعات ووحدات عقارية في زايد و6 أكتوبر، باختيارات تناسب احتياجاتك، واهتمام حقيقي بجودة البناء والتشطيب والالتزام بالتسليم.</p>
@@ -136,10 +209,10 @@ p.lat{letter-spacing:.12em!important}
 <a class="btn btn-line" href="#about">اعرف أكتر عن ARVI</a>
 </div>
 <div class="intro-gallery" style="flex: 3 1 480px; min-width: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px">
-<div class="ph intro-main" style="grid-column: span 3; height: 520px"><img loading="lazy" class="fill-img" src="assets/villa-dark.jpg" alt="واجهة فيلا معاصرة بإضاءة ليلية" style="object-position: 35% center"></div>
+<div class="ph intro-main rvi" style="grid-column: span 3; height: 520px"><img loading="lazy" class="fill-img" src="assets/villa-dark.jpg" alt="واجهة فيلا معاصرة بإضاءة ليلية" style="object-position: 35% center"></div>
 <div class="intro-side" style="grid-column: span 2; display: flex; flex-direction: column; gap: 14px; padding-top: 90px">
-<div class="ph" style="height: 260px"><img loading="lazy" class="fill-img" src="assets/villa-white.jpg" alt="تفاصيل واجهة وخامات" style="object-position: 70% 25%"></div>
-<div class="ph" style="height: 156px"><img loading="lazy" class="fill-img" src="assets/villa-garden.jpg" alt="Architecture مع Landscape" style="object-position: center 75%"></div>
+<div class="ph rvi" style="height: 260px"><img loading="lazy" class="fill-img" src="assets/villa-white.jpg" alt="تفاصيل واجهة وخامات" style="object-position: 70% 25%"></div>
+<div class="ph rvi" style="height: 156px"><img loading="lazy" class="fill-img" src="assets/villa-garden.jpg" alt="Architecture مع Landscape" style="object-position: center 75%"></div>
 </div>
 </div>
 </section>
@@ -147,13 +220,13 @@ p.lat{letter-spacing:.12em!important}
 <!-- ============ 03 WHY ARVI ============ -->
 <section style="background: #EDE6D8; color: #15130F">
 <div class="sec" style="max-width: 1280px; margin: 0 auto; padding: 130px 24px">
-<div style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-end; justify-content: space-between; margin-bottom: 70px">
+<div class="sh" style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-end; justify-content: space-between; margin-bottom: 70px">
 <h2 style="margin: 0; flex: 1 1 460px; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(36px, 4.4vw, 64px); line-height: 1.25">الاختيار الصح يبدأ <span style="color: #9A7224">من التفاصيل</span></h2>
 <p style="margin: 0; flex: 1 1 360px; max-width: 460px; color: #4A4335">في العقارات، التفاصيل الصغيرة بتفرق. من طريقة البناء، إلى مستوى التشطيب، وحتى الالتزام بموعد التسليم؛ كل خطوة بتأثر في قيمة التجربة النهائية.</p>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px">
 <article style="display: flex; flex-direction: column; gap: 22px">
-<div class="ph why-img" style="height: 380px; background-color: #2A251D"><img loading="lazy" class="fill-img" src="assets/facade-e30.jpg" alt="تفاصيل تنفيذ واجهة مبنى E 30" style="object-position: 55% 30%"></div>
+<div class="ph why-img rvi" style="height: 380px; background-color: #2A251D"><img loading="lazy" class="fill-img" src="assets/facade-e30.jpg" alt="تفاصيل تنفيذ واجهة مبنى E 30" style="object-position: 55% 30%"></div>
 <div style="display: flex; gap: 18px; align-items: baseline">
 <span class="lat" style="font-size: 54px; line-height: 1; color: #9A7224">01</span>
 <div><h3 style="margin: 0 0 8px; font-family: 'Reem Kufi', sans-serif; font-size: 26px; font-weight: 600">الالتزام بالتسليم</h3>
@@ -161,7 +234,7 @@ p.lat{letter-spacing:.12em!important}
 </div>
 </article>
 <article class="why-item" style="display: flex; flex-direction: column; gap: 22px; padding-top: 60px">
-<div class="ph why-img" style="height: 380px; background-color: #2A251D"><img loading="lazy" class="fill-img" src="assets/villa-white.jpg" alt="تفصيلة معمارية" style="object-position: 60% center"></div>
+<div class="ph why-img rvi" style="height: 380px; background-color: #2A251D"><img loading="lazy" class="fill-img" src="assets/villa-white.jpg" alt="تفصيلة معمارية" style="object-position: 60% center"></div>
 <div style="display: flex; gap: 18px; align-items: baseline">
 <span class="lat" style="font-size: 54px; line-height: 1; color: #9A7224">02</span>
 <div><h3 style="margin: 0 0 8px; font-family: 'Reem Kufi', sans-serif; font-size: 26px; font-weight: 600">جودة البناء</h3>
@@ -169,7 +242,7 @@ p.lat{letter-spacing:.12em!important}
 </div>
 </article>
 <article class="why-item" style="display: flex; flex-direction: column; gap: 22px; padding-top: 120px">
-<div class="ph why-img" style="height: 380px; background-color: #2A251D"><img loading="lazy" class="fill-img" src="assets/villa-garden.jpg" alt="مستوى التشطيب الخارجي" style="object-position: 40% 35%"></div>
+<div class="ph why-img rvi" style="height: 380px; background-color: #2A251D"><img loading="lazy" class="fill-img" src="assets/villa-garden.jpg" alt="مستوى التشطيب الخارجي" style="object-position: 40% 35%"></div>
 <div style="display: flex; gap: 18px; align-items: baseline">
 <span class="lat" style="font-size: 54px; line-height: 1; color: #9A7224">03</span>
 <div><h3 style="margin: 0 0 8px; font-family: 'Reem Kufi', sans-serif; font-size: 26px; font-weight: 600">التشطيب</h3>
@@ -183,12 +256,12 @@ p.lat{letter-spacing:.12em!important}
 <!-- ============ 04 FEATURED PROJECT ============ -->
 <section id="projects" class="sec" style="max-width: 1280px; margin: 0 auto; padding: 140px 24px 60px">
 <p class="lat" style="margin: 0; color: #E2C46A; font-size: 17px; letter-spacing: .3em">OUR PROJECTS</p>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin: 14px 0 50px">
+<div class="sh" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin: 14px 0 50px">
 <h2 style="margin: 0; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.3">مشروعات ARVI</h2>
 <p style="margin: 0; max-width: 520px; color: #BFB29A">مشروعاتنا بتتركز في مناطق نختارها بعناية، مع اهتمام بالتفاصيل من مرحلة التنفيذ وحتى التسليم.</p>
 </div>
 <div style="display: flex; flex-wrap: wrap; border: 1px solid rgba(226,196,106,.22)">
-<div class="ph proj-img" style="flex: 3 1 520px; min-height: 560px">
+<div class="ph proj-img rvi" style="flex: 3 1 520px; min-height: 560px">
 <img loading="lazy" src="assets/facade-e30.jpg" alt="واجهة مبنى E 30 — الحي التاسع" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%">
 <span style="position: absolute; bottom: 20px; right: 20px; background: rgba(11,10,8,.8); border: 1px solid rgba(226,196,106,.4); padding: 8px 14px; font-size: 14px; color: #EDE6D8">قطعة رقم <span class="lat" style="font-size: 18px; color: #E2C46A">E 30</span></span>
 </div>
@@ -211,9 +284,17 @@ p.lat{letter-spacing:.12em!important}
 </div>
 </section>
 
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+<div class="mq-track">
+<div class="mq-group"><span class="mq-out">NEVER REPEATED</span><span class="mq-dot"></span><span class="mq-ar">ما بيتكرّر</span><span class="mq-dot"></span><span class="mq-out">ARVI REAL ESTATE</span><span class="mq-dot"></span><span class="mq-ar">امتلك عنوانًا يليق بك</span><span class="mq-dot"></span><span class="mq-out">ZAYED · OCTOBER</span><span class="mq-dot"></span></div>
+<div class="mq-group"><span class="mq-out">NEVER REPEATED</span><span class="mq-dot"></span><span class="mq-ar">ما بيتكرّر</span><span class="mq-dot"></span><span class="mq-out">ARVI REAL ESTATE</span><span class="mq-dot"></span><span class="mq-ar">امتلك عنوانًا يليق بك</span><span class="mq-dot"></span><span class="mq-out">ZAYED · OCTOBER</span><span class="mq-dot"></span></div>
+</div>
+</div>
+
 <!-- ============ 05 PROPERTY TYPES ============ -->
 <section id="types" class="sec" style="max-width: 1280px; margin: 0 auto; padding: 100px 24px 140px">
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 50px">
+<div class="sh" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 50px">
 <div>
 <p class="lat" style="margin: 0; color: #E2C46A; font-size: 17px; letter-spacing: .3em">PROPERTIES</p>
 <h2 style="margin: 14px 0 0; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.3">اختيارات تناسب احتياجاتك</h2>
@@ -269,7 +350,7 @@ p.lat{letter-spacing:.12em!important}
 <section id="units" style="background: #13110D; border-top: 1px solid rgba(226,196,106,.15); border-bottom: 1px solid rgba(226,196,106,.15)">
 <div class="sec" style="max-width: 1280px; margin: 0 auto; padding: 130px 24px">
 <p class="lat" style="margin: 0; color: #E2C46A; font-size: 17px; letter-spacing: .3em">AVAILABLE NOW — 9TH DISTRICT</p>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin: 14px 0 60px">
+<div class="sh" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin: 14px 0 60px">
 <h2 style="margin: 0; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.3">وحدات متاحة حاليًا</h2>
 <p style="margin: 0; max-width: 540px; color: #BFB29A">لو بتدور على وحدة جاهزة بخيارات واضحة في المساحة والسداد، شوف الوحدات المتاحة حاليًا في مشروع الحي التاسع بأكتوبر.</p>
 </div>
@@ -277,7 +358,7 @@ p.lat{letter-spacing:.12em!important}
 <div style="flex: 1 1 420px; min-width: 0">
 <p class="lat" style="margin: 0; font-size: 22px; color: #8D836F">APARTMENT</p>
 <div style="display: flex; align-items: baseline; gap: 16px; margin: 4px 0 18px">
-<span class="lat gold" style="font-size: 120px; line-height: .95">270</span>
+<span class="lat gold big" style="font-size: 120px; line-height: .95">270</span>
 <span class="lat" style="font-size: 40px; color: #E2C46A">M²</span>
 <span style="font-family: 'Reem Kufi', sans-serif; font-size: 28px">شقة</span>
 </div>
@@ -291,12 +372,12 @@ p.lat{letter-spacing:.12em!important}
 <a class="btn btn-gold" href="https://wa.me/201278666620?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%B4%D9%82%D8%A9%20270%20%D9%85%D8%AA%D8%B1%20-%20%D8%A7%D9%84%D8%AD%D9%8A%20%D8%A7%D9%84%D8%AA%D8%A7%D8%B3%D8%B9">اعرف تفاصيل الوحدة</a>
 </div>
 <figure style="flex: 1 1 340px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 12px">
-<div style="background: #2E2D2B; border: 1px solid rgba(226,196,106,.25); padding: 10px">
+<div class="rvi" style="background: #2E2D2B; border: 1px solid rgba(226,196,106,.25); padding: 10px">
 <img loading="lazy" src="assets/plan-typical-270.jpg" alt="مسقط أفقي للدور المتكرر — شقق 270 م²" style="display: block; width: 100%; height: auto">
 </div>
 <figcaption style="font-size: 14px; color: #8D836F">مسقط أفقي للدور المتكرر — شقتان في الدور، 3 غرف نوم منها ماستر بدريسنج</figcaption>
 </figure>
-<div style="flex: 1 1 420px; min-width: 0; border: 1px solid rgba(226,196,106,.25); padding: 40px; background: #0B0A08">
+<div class="rv" style="flex: 1 1 420px; min-width: 0; border: 1px solid rgba(226,196,106,.25); padding: 40px; background: #0B0A08">
 <p style="margin: 0 0 22px; font-family: 'Reem Kufi', sans-serif; font-size: 22px">سعر المتر حسب نظام السداد</p>
 <div style="display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-top: 1px solid rgba(226,196,106,.18)">
 <span style="font-size: 17px">كاش</span>
@@ -322,16 +403,16 @@ p.lat{letter-spacing:.12em!important}
 <!-- ============ 07 DUPLEX ============ -->
 <section id="duplex" class="sec" style="max-width: 1280px; margin: 0 auto; padding: 140px 24px 70px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
 <div style="flex: 3 1 520px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
-<div class="ph dup-plan" style="grid-column: span 2; height: 400px; background-color: #EDE6D8; background-image: repeating-linear-gradient(0deg, rgba(21,19,15,.06) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, rgba(21,19,15,.06) 0 1px, transparent 1px 32px)"><span class="ph-label">Floor Plan الدوبلكس — العنصر الأساسي</span></div>
-<div class="ph" style="height: 220px"><span class="ph-label">Interior</span></div>
-<div class="ph" style="height: 220px"><img loading="lazy" src="assets/facade-e30.jpg" alt="واجهة المبنى" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 85%"></div>
+<div class="ph dup-plan rvi" style="grid-column: span 2; height: 400px; background-color: #EDE6D8; background-image: repeating-linear-gradient(0deg, rgba(21,19,15,.06) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, rgba(21,19,15,.06) 0 1px, transparent 1px 32px)"><span class="ph-label">Floor Plan الدوبلكس — العنصر الأساسي</span></div>
+<div class="ph rvi" style="height: 220px"><span class="ph-label">Interior</span></div>
+<div class="ph rvi" style="height: 220px"><img loading="lazy" src="assets/facade-e30.jpg" alt="واجهة المبنى" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 85%"></div>
 </div>
 <div style="flex: 2 1 360px; min-width: 0">
 <p class="lat" style="margin: 0; color: #E2C46A; font-size: 17px; letter-spacing: .3em">DUPLEX</p>
 <h2 style="margin: 14px 0 22px; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(38px, 4vw, 60px); line-height: 1.2">دوبلكس</h2>
 <p style="margin: 0 0 36px; color: #BFB29A">للي بيدور على مساحة أكبر وخصوصية أكثر، يوفر المشروع وحدات Duplex بمساحات وتصميمات تناسب احتياجات العائلات.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 0; border: 1px solid rgba(226,196,106,.25); margin-bottom: 36px">
-<div style="flex: 1 1 160px; padding: 22px 24px"><p style="margin: 0; font-size: 13px; color: #8D836F">السعر</p><p style="margin: 0"><span class="lat gold" style="font-size: 44px">6,500,000</span> <span style="font-size: 14px; color: #8D836F">جنيه</span></p></div>
+<div style="flex: 1 1 160px; padding: 22px 24px"><p style="margin: 0; font-size: 13px; color: #8D836F">السعر</p><p style="margin: 0"><span class="lat gold big" style="font-size: 44px">6,500,000</span> <span style="font-size: 14px; color: #8D836F">جنيه</span></p></div>
 <div style="flex: 1 1 120px; padding: 22px 24px; border-right: 1px solid rgba(226,196,106,.25)"><p style="margin: 0; font-size: 13px; color: #8D836F">على سنة · مقدم</p><p class="lat" style="margin: 0; font-size: 44px; color: #EDE6D8">50%</p></div>
 </div>
 <a class="btn btn-gold" href="https://wa.me/201278666620?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%AF%D9%88%D8%A8%D9%84%D9%83%D8%B3">اعرف تفاصيل الدوبلكس</a>
@@ -341,14 +422,14 @@ p.lat{letter-spacing:.12em!important}
 <!-- ============ 08 ROOFTOP ============ -->
 <section id="rooftop" class="sec" style="max-width: 1280px; margin: 0 auto; padding: 70px 24px 140px">
 <div class="ph roof-box" style="min-height: 640px; display: flex; align-items: flex-end; background-color: #1C1812">
-<img loading="lazy" class="fill-img" src="assets/villa-dark.jpg" alt="تراس علوي بسور زجاجي ونباتات" style="object-position: 30% 25%">
+<img loading="lazy" class="fill-img par" src="assets/villa-dark.jpg" alt="تراس علوي بسور زجاجي ونباتات" style="object-position: 30% 25%">
 <div class="roof-shade" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(270deg, rgba(11,10,8,.92) 0%, rgba(11,10,8,.6) 40%, rgba(11,10,8,0) 75%)"></div>
 <div class="roof-body" style="position: relative; padding: 56px; max-width: 560px">
 <p class="lat" style="margin: 0; color: #E2C46A; font-size: 17px; letter-spacing: .3em">ROOFTOP</p>
 <h2 style="margin: 12px 0 8px; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.3">مساحة داخلية… ومساحة تعيشها برّه</h2>
 <p style="margin: 0 0 28px; color: #D9D0BF">متاح حاليًا شقتان Roof</p>
 <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-bottom: 28px">
-<div><span class="lat gold" style="font-size: 64px; line-height: 1">250</span><span class="lat" style="font-size: 24px; color: #E2C46A"> M²</span><p style="margin: 0; font-size: 14px; color: #BFB29A">مساحة داخلية</p></div>
+<div><span class="lat gold big" style="font-size: 64px; line-height: 1">250</span><span class="lat" style="font-size: 24px; color: #E2C46A"> M²</span><p style="margin: 0; font-size: 14px; color: #BFB29A">مساحة داخلية</p></div>
 <div><span class="lat" style="font-size: 64px; line-height: 1; color: #EDE6D8">+20</span><span class="lat" style="font-size: 24px; color: #E2C46A"> M²</span><p style="margin: 0; font-size: 14px; color: #BFB29A">Outdoor Area</p></div>
 </div>
 <p style="margin: 0 0 30px; font-size: 18px"><span class="lat" style="font-size: 30px; color: #EDE6D8">3,500,000</span> جنيه كاش <span style="color: #8D836F">أو</span> <span class="lat" style="font-size: 30px; color: #EDE6D8">4,000,000</span> جنيه على سنة · <span style="color: #E2C46A; white-space: nowrap">مقدم 50%</span></p>
@@ -365,7 +446,7 @@ p.lat{letter-spacing:.12em!important}
 <h2 style="margin: 14px 0 22px; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.3">مساحة أكبر لتجربة مختلفة</h2>
 <p style="margin: 0 0 10px; color: #4A4335">يتوفر بالمشروع خيار للدور الأرضي مع Garden، بالإضافة إلى Basement مفتوح عليه، بإجمالي مساحة تصل إلى:</p>
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 10px 0">
-<span class="lat" style="font-size: 150px; line-height: .9; color: #9A7224">500</span>
+<span class="lat big" style="font-size: 150px; line-height: .9; color: #9A7224">500</span>
 <span class="lat" style="font-size: 44px">M²</span>
 <span style="font-size: 18px; color: #4A4335">لكل Duplex</span>
 </div>
@@ -373,7 +454,7 @@ p.lat{letter-spacing:.12em!important}
 <a class="btn" href="https://wa.me/201278666620?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%AF%D9%88%D8%B1%20%D8%A7%D9%84%D8%A3%D8%B1%D8%B6%D9%8A%20%D9%88%D8%A7%D9%84%D8%AC%D8%A7%D8%B1%D8%AF%D9%86" style="background: #15130F; color: #EDE6D8">استفسر عن الوحدات المتاحة</a>
 </div>
 <figure style="flex: 3 1 520px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 14px">
-<div style="background: #2E2D2B; padding: 10px">
+<div class="rvi" style="background: #2E2D2B; padding: 10px">
 <img loading="lazy" src="assets/plan-ground-garden.jpg" alt="مسقط أفقي للدور الأرضي مع الحديقة" style="display: block; width: 100%; height: auto">
 </div>
 <figcaption style="display: flex; flex-wrap: wrap; gap: 10px 32px; font-size: 15px; color: #4A4335">
@@ -396,7 +477,7 @@ p.lat{letter-spacing:.12em!important}
 <a class="btn btn-line" href="tel:+201278666620">اسأل عن الموقع</a>
 </div>
 </div>
-<div class="map-box" style="flex: 3 1 520px; min-width: 0; height: 460px; position: relative; border: 1px solid rgba(226,196,106,.22); background: #100E0B; overflow: hidden">
+<div class="map-box rvi" style="flex: 3 1 520px; min-width: 0; height: 460px; position: relative; border: 1px solid rgba(226,196,106,.22); background: #100E0B; overflow: hidden">
 <svg aria-hidden="true" width="100%" height="100%" viewBox="0 0 760 460" preserveAspectRatio="xMidYMid slice" fill="none">
 <g stroke="rgba(226,196,106,.16)" stroke-width="1">
 <path d="M0 120 L760 70"/><path d="M0 260 L760 230"/><path d="M0 390 L760 380"/>
@@ -415,10 +496,10 @@ p.lat{letter-spacing:.12em!important}
 
 <!-- ============ 11 FINAL CTA ============ -->
 <section id="contact" class="ph" style="min-height: 620px; display: flex; align-items: center; background-color: #17130D">
-<img loading="lazy" src="assets/facade-e30.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 70%">
+<img loading="lazy" class="par" src="assets/facade-e30.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 70%">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(11,10,8,.78)"></div>
-<div style="position: relative; width: 100%; max-width: 860px; margin: 0 auto; padding: 100px 24px; text-align: center; box-sizing: border-box">
-<img loading="lazy" src="assets/arvi-mono.png" alt="ARVI" style="height: 56px; width: auto; margin-bottom: 30px">
+<div class="sec" style="position: relative; width: 100%; max-width: 860px; margin: 0 auto; padding: 100px 24px; text-align: center; box-sizing: border-box">
+<img loading="lazy" class="rv" src="assets/arvi-mono.png" alt="ARVI" style="height: 56px; width: auto; margin-bottom: 30px">
 <h2 style="margin: 0 0 22px; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: clamp(40px, 5vw, 76px); line-height: 1.2">جاهز تختار <span class="gold">وحدتك؟</span></h2>
 <p style="margin: 0 auto 40px; max-width: 640px; color: #D9D0BF">سواء كنت بتدور على شقة، دوبلكس، روف أو وحدة تناسب احتياجاتك بشكل مختلف، فريق ARVI جاهز يساعدك تعرف التفاصيل والوحدات المتاحة حاليًا.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center">
@@ -471,5 +552,29 @@ p.lat{letter-spacing:.12em!important}
 <span class="wa-text">كلمنا واتساب</span></a>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded',function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lenis=null;
+  if(window.Lenis&&!reduce){
+    lenis=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true});
+    (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href'); var el=id.length>1?document.querySelector(id):null;
+      if(!el)return; e.preventDefault();
+      if(lenis)lenis.scrollTo(el,{offset:-(document.querySelector('header').offsetHeight+8)}); else el.scrollIntoView({behavior:reduce?'auto':'smooth'});
+    });
+  });
+  var supported=window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()');
+  if(!supported&&!reduce&&'IntersectionObserver' in window){
+    document.documentElement.classList.add('io');
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.sec h2,.sec h3,.sec p,.sec .btn,.sec figcaption,.sec .stats,.rv,.rvi,.cat,.big').forEach(function(el){io.observe(el)});
+  }
+});
+</script>
 </body>
 </html>
